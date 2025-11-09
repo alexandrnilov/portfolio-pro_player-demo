@@ -1,0 +1,320 @@
+body {
+    position: relative;
+    height: 100vh;
+    background-color: rgb(var(--my-info));
+}
+#waveform {
+    position: relative;
+    width: 100%; 
+    height: max-content; 
+    box-shadow: inset -4px 0.4rem 1rem rgba(0, 0, 0, 0.1) !important;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+}
+#wave-scroll {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    background: #eee;
+}
+
+
+
+.piano-wrapper {
+    overflow-x: scroll;      /* или auto — если хочешь только горизонтальную */
+    overflow-y: hidden;      /* прячем вертикальную */
+    scrollbar-width: none;   /* Firefox */
+    -ms-overflow-style: none;/* IE/старый Edge */
+}
+
+/* Chrome, Safari, Edge Chromium, Opera */
+.piano-wrapper::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background: transparent; /* полностью скрываем */
+}
+
+
+#bpm-info{
+    line-height: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: .1rem;
+    margin-right: .05rem;
+    font-size: .6rem;
+    display: flex;
+    justify-content: center;
+    padding: .25rem .4rem;
+    background-color: rgb(var(--my-info));
+    color: rgb(var(--my-light-shades));
+    letter-spacing: .03rem;
+    user-select: none;
+    z-index: 9999999999;
+}
+
+#scroll-handle {
+    border-radius: .2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(234, 70, 17, .5);
+    cursor: grab;
+    border: 1px solid rgb(234 27 15);
+}
+.load-piano{
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 1rem;
+    font-size: .8rem;
+    background-color: rgba(0, 0, 0, .7);
+    color: #fff;
+    user-select: none;
+}
+.white-key.active {
+    background-color: #7bed9f; /* светлый мятный */
+}
+
+.black-key.active {
+    background-color: #2f8f4e; /* насыщенный тёмно-зелёный */
+}
+.white-key.active2 {
+    background: #ccc; /* светло-серый при нажатии */
+}
+
+.black-key.active2 {
+    background: #555; /* чуть светлее черного при нажатии */
+}
+.close-region{
+    position: 'absolute';
+    right: '2px';
+    top: '2px';
+    cursor: 'pointer';
+    font-size: '14px';
+    color: '#fff';
+}
+#player-container{
+    position: absolute;
+    left: 50%;
+    width: 80%;
+    transform: translateX(-50%) translateY(-50%);
+    top: 50%;
+}
+#start-btn{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    aspect-ratio: 1 / 1;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    transform-origin: center;
+}
+.loading-audio{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+.piano-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.piano-roll {
+    display: flex;
+    position: relative;
+    height: 60px;
+    width: max-content;
+    user-select: none;
+    margin-top: 41px;
+}
+
+
+input[type="range"] {
+    -webkit-appearance: none;
+    outline: none;
+    border: none;
+}
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 2px;
+    background: rgb(var(--my-info));
+    border-radius: 0;
+    outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 4px;
+    height: 16px;
+    background: rgb(var(--my-info));
+    cursor: pointer;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+    margin-top: 0;
+}
+input[type=range]::-moz-range-thumb {
+    width: 4px;
+    height: 16px;
+    background: rgb(var(--my-info));
+    cursor: pointer;
+    border-radius: 2px;
+}
+input[type=range]::-ms-thumb {
+    width: 2px;
+    height: 16px;
+    background: rgb(var(--my-info));
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.frequency-graph {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    pointer-events: none;
+}
+
+
+.white-key {
+  width: 20px;
+  height: 100%;
+  background: white;
+  border: 1px solid black;
+  position: relative;
+  border-bottom-left-radius: .2rem;
+  border-bottom-right-radius: .2rem;
+}
+
+.black-key {
+  width: 12px;
+  height: 60%;
+  background: black;
+  position: absolute;
+  top: 0;
+  right: -6px;
+  z-index: 1;
+  border-bottom-left-radius: .15rem;
+  border-bottom-right-radius: .15rem;
+}
+
+.sox-controls {
+        margin: 20px 0;
+        padding: 20px;
+        border: 2px solid #4CAF50;
+        border-radius: 10px;
+        background: #f8fff8;
+    }
+    
+    .sox-controls h4 {
+        margin: 0 0 15px 0;
+        color: #2E7D32;
+    }
+    
+    .pitch-controls {
+        margin-bottom: 15px;
+    }
+    
+    .pitch-display {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+    
+    .pitch-slider {
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        background: #ddd;
+        outline: none;
+    }
+    
+    .pitch-presets {
+        display: flex;
+        gap: 5px;
+        margin: 15px 0;
+    }
+    
+    .preset-btn {
+        flex: 1;
+        padding: 8px 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: white;
+        cursor: pointer;
+        font-size: 12px;
+    }
+    
+    .preset-btn.active {
+        background: #4CAF50;
+        color: white;
+        border-color: #4CAF50;
+    }
+    
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin: 15px 0;
+    }
+    
+    .process-btn, .reset-btn {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .process-btn {
+        background: #4CAF50;
+        color: white;
+    }
+    
+    .process-btn:disabled {
+        background: #cccccc;
+        cursor: not-allowed;
+    }
+    
+    .reset-btn {
+        background: #ff9800;
+        color: white;
+    }
+    
+    .file-info {
+        margin-top: 10px;
+        text-align: center;
+        color: #666;
+        font-size: 12px;
+    }
+    
+    .status {
+        min-height: 20px;
+        font-size: 14px;
+        text-align: center;
+        margin-top: 10px;
+    }

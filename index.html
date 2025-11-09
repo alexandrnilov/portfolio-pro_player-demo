@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="CSS/bootstrap.css" rel="stylesheet">
+    <link href="CSS/main.css" rel="stylesheet">
+    <link href="CSS/pro-player.css" rel="stylesheet">
+    <script src="JS/jqure.js"></script>
+    <title>Pro-Player</title>
+</head>
+<body>
+<button class="btn btn-light text-info shadow-lg" id="start-btn">Запустить плеер</button>
+<div class="loading-audio text-light d-none">Загрузка аудиофайла...</div>
+
+<div class="d-none p-3 shadow rounded border bg-light" id="player-container" style="display:none;">
+    <div class="transport d-flex p-2 mb-2">
+        <button class="btn btn-sm btn-outline-info" id="play">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+            </svg>
+        </button>
+        <button class="btn btn-sm btn-outline-info ms-2" id="pause">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+                <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
+            </svg>
+        </button>
+        <button class="btn btn-sm btn-outline-info ms-2" id="stop">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-fill" viewBox="0 0 16 16">
+                <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5"/>
+            </svg>
+        </button>
+        <button class="btn btn-sm btn-outline-success ms-2" id="loop-repeat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16">
+                <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
+            </svg>
+        </button>
+        <div class="d-flex align-items-center mx-auto text-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-zoom-out" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0"/>
+                <path d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z"/>
+                <path fill-rule="evenodd" d="M3 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"/>
+            </svg>
+            <input class="mx-1" type="range" id="zoom-range" min="1" max="500" step="1" value="0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-zoom-in" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0"/>
+                <path d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z"/>
+                <path fill-rule="evenodd" d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5"/>
+            </svg>
+        </div>
+        <button class="btn btn-sm btn-outline-info" id="open-pith" data-bs-toggle="modal" data-bs-target="#soxModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+            </svg>
+        </button>
+    </div>
+    <div class="border rounded" id="waveform">
+        <div class="border rounded" id="bpm-info"></div>
+    </div>
+    <div class="wave-scroll mt-1 rounded" style="position:relative; width:100%; height:40px; background:#eee;">
+        <canvas id="mini-wave"></canvas>
+        <div id="scroll-handle"></div>
+    </div>
+    <div class="piano-wrapper border rounded mt-2 py-1">
+        <canvas class="frequency-graph"></canvas>
+        <div class="piano-roll">
+            <div class="load-piano">Загрузка звуков фортепиано...</div>
+        </div>
+    </div>
+</div>
+<div id="soxModal" class="soxModal modal fade" aria-modal="true" role="dialog" style="z-index: 9999999;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content h-100">
+            <div class="modal-header d-block">
+                <div class="d-flex align-items-center">
+                    <h6 class="modal-title">Настройки аудио</h6>
+                    <div class="mx-auto" id="sox-status" style="font-size: .7rem;"></div>
+                    <button class="btn btn-sm btn-outline-light mx-3" id="sox-reset-btn" style="border-radius: 50%;aspect-ratio: 1/1;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply-fill" viewBox="0 0 16 16" style="margin-bottom: .2rem;">
+                            <path d="M5.921 11.9 1.353 8.62a.72.72 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
+                        </svg>
+                    </button>
+                    <button id="csoxModal_close" type="button" class="btn-close btn-close-white btn-sm ms-0" data-bs-dismiss="modal"></button>
+                </div>  
+            </div>
+            <div class="modal-body overflow-hidden">
+
+                <div>
+                    <div class="d-flex"> 
+                        <div class="w-50 p-2">
+                            <label class="form-label">Полутона: <span id="sox-semitons">0</span></label>
+                            <div class="d-flex align-items-center">
+                                <input type="range" id="sox-pitch-slider" min="-12" max="12" step="1" value="0">
+                                <input class="ms-2 form-control" type="number" id="sox-pitch-number" min="-12" max="12" step="1" value="0" style="width: unset;">
+                            </div>  
+                        </div>
+                        <div class="w-50 p-2">
+                            <label class="form-label">Центы: <span id="sox-cents">0</span></label>
+                            <div class="d-flex align-items-center">
+                                <input type="range" id="sox-cents-slider" min="-99" max="99" step="1" value="0">
+                                <input class="ms-2 form-control" type="number" id="sox-cents-number" min="-99" max="99" step="1" value="0" style="width: unset;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label">Скорость воспроизведения: <span id="sox-speed">100%</span></label>
+                    <div class="d-flex align-items-center text-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-walking" viewBox="0 0 16 16">
+                            <path d="M9.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M6.44 3.752A.75.75 0 0 1 7 3.5h1.445c.742 0 1.32.643 1.243 1.38l-.43 4.083a1.8 1.8 0 0 1-.088.395l-.318.906.213.242a.8.8 0 0 1 .114.175l2 4.25a.75.75 0 1 1-1.357.638l-1.956-4.154-1.68-1.921A.75.75 0 0 1 6 8.96l.138-2.613-.435.489-.464 2.786a.75.75 0 1 1-1.48-.246l.5-3a.75.75 0 0 1 .18-.375l2-2.25Z"/>
+                            <path d="M6.25 11.745v-1.418l1.204 1.375.261.524a.8.8 0 0 1-.12.231l-2.5 3.25a.75.75 0 1 1-1.19-.914zm4.22-4.215-.494-.494.205-1.843.006-.067 1.124 1.124h1.44a.75.75 0 0 1 0 1.5H11a.75.75 0 0 1-.531-.22Z"/>
+                        </svg>
+                        
+                        <input class="mx-1" type="range" id="speed-range" min="0.5" max="3" step="0.1" value="1">
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-rocket-takeoff-fill" viewBox="0 0 16 16">
+                            <path d="M12.17 9.53c2.307-2.592 3.278-4.684 3.641-6.218.21-.887.214-1.58.16-2.065a3.6 3.6 0 0 0-.108-.563 2 2 0 0 0-.078-.23V.453c-.073-.164-.168-.234-.352-.295a2 2 0 0 0-.16-.045 4 4 0 0 0-.57-.093c-.49-.044-1.19-.03-2.08.188-1.536.374-3.618 1.343-6.161 3.604l-2.4.238h-.006a2.55 2.55 0 0 0-1.524.734L.15 7.17a.512.512 0 0 0 .433.868l1.896-.271c.28-.04.592.013.955.132.232.076.437.16.655.248l.203.083c.196.816.66 1.58 1.275 2.195.613.614 1.376 1.08 2.191 1.277l.082.202c.089.218.173.424.249.657.118.363.172.676.132.956l-.271 1.9a.512.512 0 0 0 .867.433l2.382-2.386c.41-.41.668-.949.732-1.526zm.11-3.699c-.797.8-1.93.961-2.528.362-.598-.6-.436-1.733.361-2.532.798-.799 1.93-.96 2.528-.361s.437 1.732-.36 2.531Z"/>
+                            <path d="M5.205 10.787a7.6 7.6 0 0 0 1.804 1.352c-1.118 1.007-4.929 2.028-5.054 1.903-.126-.127.737-4.189 1.839-5.18.346.69.837 1.35 1.411 1.925"/>
+                        </svg>
+                        <input class="mx-2 form-control" type="number" id="speed-number" min="50" max="3" step="100" value="100" style="width: unset;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-2">
+                <div class="hstack gap-3 w-100">
+                    <button id="soxModal_exit" type="button" class="btn btn-outline-info btn-sm" data-bs-dismiss="modal">Отмена</button>
+                    <button class="btn btn-sm btn-outline-primary ms-auto" id="sox-autotune-btn" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-magic" viewBox="0 0 16 16">
+                            <path d="M9.5 2.672a.5.5 0 1 0 1 0V.843a.5.5 0 0 0-1 0zm4.5.035A.5.5 0 0 0 13.293 2L12 3.293a.5.5 0 1 0 .707.707zM7.293 4A.5.5 0 1 0 8 3.293L6.707 2A.5.5 0 0 0 6 2.707zm-.621 2.5a.5.5 0 1 0 0-1H4.843a.5.5 0 1 0 0 1zm8.485 0a.5.5 0 1 0 0-1h-1.829a.5.5 0 0 0 0 1zM13.293 10A.5.5 0 1 0 14 9.293L12.707 8a.5.5 0 1 0-.707.707zM9.5 11.157a.5.5 0 0 0 1 0V9.328a.5.5 0 0 0-1 0zm1.854-5.097a.5.5 0 0 0 0-.706l-.708-.708a.5.5 0 0 0-.707 0L8.646 5.94a.5.5 0 0 0 0 .707l.708.708a.5.5 0 0 0 .707 0l1.293-1.293Zm-3 3a.5.5 0 0 0 0-.706l-.708-.708a.5.5 0 0 0-.707 0L.646 13.94a.5.5 0 0 0 0 .707l.708.708a.5.5 0 0 0 .707 0z"/>
+                        </svg>
+                        Автотюн
+                    </button>
+                    <button id="sox-process-btn" type="button" class="btn btn-success ms-3 btn-sm">Применить</button>
+                </div>
+            </div>
+
+        </div>    
+    </div>
+</div>
+<script src="JS/bootstrap.js"></script>
+<script type="module">
+    import {ProPlayer} from "JS/pro-player.js";
+    const my_player = new ProPlayer().start();
+</script>
+</body>
+</html>
