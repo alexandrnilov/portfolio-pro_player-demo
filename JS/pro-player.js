@@ -1,12 +1,13 @@
 import WaveSurfer from '/JS/WAVE/wavesurfer.esm.js';
 import RegionsPlugin from '/JS/WAVE/wavesurfer.regions.esm.js';
 import Soundfont from '/JS/WAVE/soundfont-player.js';
+console.log(Soundfont);
 
 
 
 export class ProPlayer {
     constructor(obj = {}) {
-        this.url = obj.url || '/AUDIO/4.mp3';
+        this.url = obj.url || './AUDIO/4.mp3';
         this.sox_url = obj.sox_url || '../process-sox.php';
         this.regions = null;
         this.region = null;
@@ -31,6 +32,8 @@ export class ProPlayer {
     }
     start = (th = this) => {
         $('#start-btn').on('click',(e) => {
+            console.log('Start');
+            
             $(e.target).remove();
             $('.loading-audio').removeClass('d-none');
             th.loadWs();
