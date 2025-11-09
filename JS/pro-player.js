@@ -1,10 +1,6 @@
 import WaveSurfer from './WAVE/wavesurfer.esm.js';
 import RegionsPlugin from './WAVE/wavesurfer.regions.esm.js';
 import Soundfont from './WAVE/soundfont-player.js';
-//console.log(Soundfont);
-
-console.log('Pro Player');
-
 
 export class ProPlayer {
     constructor(obj = {}) {
@@ -33,8 +29,6 @@ export class ProPlayer {
     }
     start = (th = this) => {
         $('#start-btn').on('click',(e) => {
-            console.log('Start');
-            
             $(e.target).remove();
             $('.loading-audio').removeClass('d-none');
             th.loadWs();
@@ -934,4 +928,4 @@ export class ProPlayer {
         });
     } 
 }
-//const my_player = new ProPlayer().start();
+
