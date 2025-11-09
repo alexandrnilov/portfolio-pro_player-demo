@@ -8,7 +8,7 @@ console.log('Pro Player');
 
 export class ProPlayer {
     constructor(obj = {}) {
-        this.url = obj.url || '../AUDIO/4.mp3';
+        this.url = obj.url || './AUDIO/4.mp3';
         this.sox_url = obj.sox_url || '../process-sox.php';
         this.regions = null;
         this.region = null;
