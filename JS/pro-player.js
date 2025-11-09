@@ -1,7 +1,7 @@
-import WaveSurfer from '/JS/WAVE/wavesurfer.esm.js';
-import RegionsPlugin from '/JS/WAVE/wavesurfer.regions.esm.js';
-import Soundfont from '/JS/WAVE/soundfont-player.js';
-console.log(Soundfont);
+import WaveSurfer from './JS/WAVE/wavesurfer.esm.js';
+import RegionsPlugin from './JS/WAVE/wavesurfer.regions.esm.js';
+import Soundfont from './JS/WAVE/soundfont-player.js';
+//console.log(Soundfont);
 
 
 
