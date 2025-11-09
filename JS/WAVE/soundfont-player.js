@@ -76,7 +76,7 @@
     format = format === 'ogg' ? format : 'mp3'
     sf = sf === 'FluidR3_GM' ? sf : 'MusyngKite'
     //return 'https://gleitz.github.io/midi-js-soundfonts/' + sf + '/' + name + '-' + format + '.js'
-    return '/JS/AppPages/WAVE/piano-sound.js';
+    return './piano-sound.js';
   }
   
   // In the 1.0.0 release it will be:
